@@ -78,7 +78,7 @@ static void init_keys(const char *passwd, unsigned long *pkeys, const unsigned l
 #ifdef INCLUDECRYPTINGCODE_IFCRYPTALLOWED
 
 #define RAND_HEAD_LEN 12
-    /* "last resort" source for second part of crypt seed pattern */
+/* "last resort" source for second part of crypt seed pattern */
 #ifndef ZCR_SEED2
 #define ZCR_SEED2 3141592654UL /* use PI as default pattern */
 #endif
@@ -107,7 +107,7 @@ static int crypthead(const char *passwd, /* password string */
     }
     init_keys(passwd, pkeys, pcrc_32_tab);
     for (n = 0; n < RAND_HEAD_LEN - 2; n++) {
-        c = (rand() >> 7) & 0xff;
+        c = (arc4random() >> 7) & 0xff;
         header[n] = (unsigned char)zencode(pkeys, pcrc_32_tab, c, t);
     }
     /* Encrypt random header (last two bytes is high word of crc) */
